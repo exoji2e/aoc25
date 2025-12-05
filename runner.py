@@ -102,7 +102,7 @@ def symlink_force(target, link_name):
 
 def wait_until(date_time):
     now = datetime.now().astimezone()
-    tE = date_time.timestamp()
+    tE = date_time.timestamp() + 3
     t0 = now.timestamp()
     M = int(tE-t0) + 1
     if M <= 0: return
@@ -112,7 +112,7 @@ def wait_until(date_time):
         progressbar.Bar(),
         ' (', progressbar.ETA(), ') ',
     ]
-    print(f'waiting from {now} until {date_time}')
+    print(f'waiting from {now} until {date_time} + 5s')
     bar = progressbar.ProgressBar(max_value=int(tE-t0), widgets=widgets)
     while time.time() < tE:
         cT = time.time()
@@ -191,7 +191,7 @@ class Options:
         else:
             self.run_options = 'RUN_INPUT'
     def print_info(self):
-        return self.run_options == 'RUN_INPUT' and self.print_stats
+        return self.run_input() and self.print_stats
     def submit1(self):
         return self.submit and not self.p2
     def submit2(self):
